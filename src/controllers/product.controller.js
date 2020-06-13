@@ -7,12 +7,10 @@ export async function getProducts(req, res) {
             Bodega: products
         });
     } catch(e){
-        console.log(e)
         res.status(400).json({
             message: "Something goes wrong",
             data: {}
         });
-
     }
 };
 
@@ -34,7 +32,6 @@ export async function createProduct(req, res){
             })
         }
     } catch(e) {
-        console.log(e)
         res.status(400).json({
             message: "Something goes wrong",
             data: {}
@@ -42,22 +39,14 @@ export async function createProduct(req, res){
     }
 }
 
-export async function deleteProduct(req, res){
-    const { sku } = req.params;
-    try{
-        const data = await Product.destroy({
-            where:{
-                sku
-            }
-        });
-        res.json({
-            message: "Product deleted succesfully"
-        })
-    } catch(e) {
-        console.log(e)
-        res.status(400).json({
-            message: "Something goes wrong",
-            data: {}
-        });
-    }
+export function deleteProduct(req, res){
+    Product.destroy({where: req.params})
+    .then(result => {
+        if (result){
+            res.status(200).json({msg: "Product deleted"})
+        }
+        else{
+            res.status(404).json({msg: "Not Found"})
+        }
+    })
 }
