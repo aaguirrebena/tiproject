@@ -12,7 +12,8 @@ app.use(morgan("dev")); //muestra en consola lo que va llegando
 app.use(json()); //permite entender los json que van llegando
 
 //routes
-app.use("/api/products", productRoutes);
+app.use("/stock", productRoutes);
 app.use("/api/tasks", taskRoutes);
+// app.use("/g15/products", productRoutes);
 
 export default app;
